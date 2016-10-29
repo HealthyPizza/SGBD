@@ -82,7 +82,6 @@ public final class RDFRawParser {
 			startTime = System.currentTimeMillis();
 			Integer index=dico.getIndexOf(object);
 			if(index!=null){
-				System.out.println(index);
 				dico.tripletsRDF(IndexManager.dummy(index));
 				dico.tripletsRDF(IndexManager.dummy1(index));
 				endTime = System.currentTimeMillis();
