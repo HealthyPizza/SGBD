@@ -70,6 +70,7 @@ public class Dictionnary {
 		return s;
 	}
 
+	
 	public static void main(String[] args) {
 		Dictionnary d = new Dictionnary();
 		String value=new String("Test");

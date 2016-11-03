@@ -87,12 +87,12 @@ public class Index {
 		return res;
 	}
 	
-	public Integer[][] getTriplet(Integer i1)
+	public Integer[][] getTriplet(Integer i1) throws TripletNotFoundException
 	{
 		long startTime = System.currentTimeMillis();
 		HashMap<Integer, Vector<Integer> > map = getSecondLevel(i1);
 		if(map == null)
-			return null;
+			throw new TripletNotFoundException();
 		Set<Integer> keys = map.keySet();
 		Collection<Vector<Integer> > vectors = map.values();
 		int size = 0;
@@ -155,7 +155,12 @@ public class Index {
 		System.out.println(spo.getTriplets(1).toString());
 		System.out.println(spo.getTriplets(1,5).toString());
 
-		System.out.println(d.tripletsRDF(spo.getTriplet(1)));
+		try {
+			System.out.println(d.tripletsRDF(spo.getTriplet(1)));
+		} catch (TripletNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		FileLog.endLog();
 	}
 

@@ -1,11 +1,16 @@
 package Indexes;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Vector;
+
+import Dictionnary.Dictionnary;
 
 public final class IndexManager {
 
-	
+
 	/*SPO SOP OPS OSP POS PSO*/
 	private static Index spo;
 	private static Index sop;
@@ -14,12 +19,12 @@ public final class IndexManager {
 	private static Index pos;
 	private static Index pso;
 	private static int size=0;
-	
+
 	public static void initIndexes(){
 		spo=new Index();	sop=new Index();	ops=new Index();
 		osp=new Index();	pos=new Index();	pso=new Index();
 	}
-	
+
 	public static void insert(Integer s, Integer p, Integer o){
 		spo.insert(s, p, o);
 		sop.insert(s, o, p);
@@ -29,20 +34,63 @@ public final class IndexManager {
 		pso.insert(p, s, o);
 		size++;
 	}
-	
+
 	public static int size(){
 		return size;
 	}
-	
-	public static Integer[][] dummy(Integer i){
-		
-		return osp.getTriplet(i);
-		
+
+	public static Integer[][] dummy(Integer i) throws TripletNotFoundException{
+		return spo.getTriplet(i);
 	}
-	
+
+	private static int getMin(Vector<Integer> predicates){
+		int min=pso.getSecondLevel(predicates.get(0)).size();
+		int index=0;
+		System.out.println("Predicates count for "+ 0+ " : "+min);
+		for(int j=1;j<predicates.size();j++){
+			int size=pso.getSecondLevel(predicates.get(j)).size();
+			System.out.println("Predicates count for "+ j+ " : "+size);
+			if(size<min){
+				min=size;
+				index=j;
+			}
+		}
+		System.out.println("Return: "+index);
+		return index;
+	}
+
+	public static void subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects) throws TripletNotFoundException{
+		Vector<String> results=new Vector<String>();
+		int index=getMin(predicates);
+		Vector<Integer> temp=pos.getThirdLevel(predicates.get(index),objects.get(index));
+		Vector<Integer> temp1= new Vector<Integer>(temp);
+		System.out.println(temp.size());//d
+		predicates.remove(index);
+		objects.remove(index);
+		while(!predicates.isEmpty()){
+			if(temp.size()==1){
+				System.out.println("Only one result: "+ dico.getValueOf(temp.get(0)));
+				return;
+			}
+			index=getMin(predicates);
+			for(Integer i:temp){
+				if(!spo.getThirdLevel(i, predicates.get(index)).contains(objects.get(index))){
+					//System.out.println(spo.getThirdLevel(subject, predicates.get(0)));
+					temp1.remove(i);
+				}
+			}
+			predicates.remove(index);
+			objects.remove(index);
+		}
+
+		for(Integer i:temp1){
+			System.out.println(dico.getValueOf(i));
+		}
+	}
+
 	public static Vector<String> dummy1(Integer i){
-		
-		return osp.getTriplets(i);
-		
+
+		return spo.getTriplets(i);
+
 	}
 }

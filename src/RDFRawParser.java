@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Scanner;
+import java.util.Vector;
 
 import org.openrdf.model.Statement;
 import org.openrdf.rio.RDFFormat;
@@ -16,17 +17,16 @@ import org.openrdf.rio.helpers.RDFHandlerBase;
 import Dictionnary.Dictionnary;
 import Indexes.Index;
 import Indexes.IndexManager;
+import Indexes.TripletNotFoundException;
 import Log.FileLog;
 
 public final class RDFRawParser {
 
-	static Dictionnary dico;
+	public static Dictionnary dico;
 	private static class RDFListener extends RDFHandlerBase {
 
 		@Override
 		public void handleStatement(Statement st) {
-			/*System.out.println("\n" + st.getSubject() + "\t " + st.getPredicate() + "\t "
-					+ st.getObject());*/
 			dico.put(st.getSubject().stringValue());
 			dico.put(st.getPredicate().stringValue());
 			dico.put(st.getObject().stringValue());
@@ -35,13 +35,12 @@ public final class RDFRawParser {
 
 	};
 	/*http://swat.cse.lehigh.edu/onto/univ-bench.owl#University*/
-	public static void main(String args[]) throws FileNotFoundException, InterruptedException {
+	public static void main(String args[]) throws InterruptedException, IOException {
 
 		//FileLog.createLog();
-
-
+		FileWriter writer = null;
+		FileWriter writer1 = null;
 		dico=new Dictionnary();
-		//spo=new Index();
 		IndexManager.initIndexes();
 		long startTime = System.currentTimeMillis();
 		File files= new File("./dataset");
@@ -52,20 +51,20 @@ public final class RDFRawParser {
 					.createParser(RDFFormat.RDFXML);
 			rdfParser.setRDFHandler(new RDFListener());
 			try {
+				writer=new FileWriter(new File("resultsM.txt"));
+				writer1=new FileWriter(new File("resultsF.txt"));
 				rdfParser.parse(reader, "");
 
 			} catch (Exception e) {
 
 			}
-			//System.out.println(dico.tripletsRDF(spo.getTriplet(11, 14)));
-			//System.out.println(spo.getThirdLevel(11, 14));
 			try {
 				reader.close();
 
 			} catch (IOException e) {
 			}
 			//if(inter==40)
-				//break;
+			//break;
 			inter++;
 		}
 		long endTime = System.currentTimeMillis();
@@ -75,22 +74,40 @@ public final class RDFRawParser {
 		System.out.println("Dictionnary entries : "+dico.size());
 		System.out.println("Index entries : "+IndexManager.size());
 
-		while(true){
-			System.out.print("Objet a rechercher: ");
-			Scanner sc=new Scanner(System.in);
-			String object = sc.nextLine();
+		//while(true){
+			//System.out.print("Objet a rechercher: ");
+			//Scanner sc=new Scanner(System.in);
+			//String object = sc.nextLine();
 			startTime = System.currentTimeMillis();
-			Integer index=dico.getIndexOf(object);
-			if(index!=null){
-				dico.tripletsRDF(IndexManager.dummy(index));
-				dico.tripletsRDF(IndexManager.dummy1(index));
-				endTime = System.currentTimeMillis();
-				System.out.println("Temps recherche + affichage: " + (endTime - startTime) + " milliseconds");
+			//Integer index=dico.getIndexOf(object);
+			//if(index!=null){
+				try {
+					Vector<Integer> predicates=new Vector<Integer>();
+					Vector<Integer> objects=new Vector<Integer>();
+					
+					
+					predicates.add(dico.getIndexOf("http://swat.cse.lehigh.edu/onto/univ-bench.owl#telephone"));
+					predicates.add(dico.getIndexOf("http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf"));
+					objects.add(dico.getIndexOf("xxx-xxx-xxxx"));
+					objects.add(dico.getIndexOf("http://www.Department12.University0.edu/Course46"));
+					writer.write(dico.tripletsRDF(IndexManager.dummy(dico.getIndexOf("http://www.Department12.University0.edu/AssistantProfessor9"))));
+					//writer1.write(dico.tripletsRDF(IndexManager.dummy1(index)));
+					endTime = System.currentTimeMillis();
+					
+					//System.out.println("Temps recherche + affichage: " + (endTime - startTime) + " milliseconds");
+					IndexManager.subjectByPredicates(dico, predicates, objects);
+					writer1.flush();
+					writer.flush();
+				} catch (TripletNotFoundException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					writer.write("TripletNonTrouve");
+					writer.flush();
+				}
 			}
-			else{
+			/*else{
 				System.out.println("--Objet non present--\n");
-			}
-		}
+			}*/
+		//}
 	}
 
-}
