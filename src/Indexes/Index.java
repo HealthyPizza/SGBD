@@ -73,7 +73,7 @@ public class Index {
 			}
 		}
 		long endTime = System.currentTimeMillis();
-		System.out.println("-Flo- Temps generation liste des clés " + (endTime - startTime) + " milliseconds");
+		System.out.println("-Flo- Temps generation liste des cles " + (endTime - startTime) + " milliseconds");
 		return res;
 	}
 	
@@ -114,7 +114,7 @@ public class Index {
 			}
 		}
 		long endTime = System.currentTimeMillis();
-		System.out.println("-Manu- Temps generation liste des clés " + (endTime - startTime) + " milliseconds");
+		System.out.println("-Manu- Temps generation liste des cles " + (endTime - startTime) + " milliseconds");
 		return triplets;
 	}  
 

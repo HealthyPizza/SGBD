@@ -54,7 +54,7 @@ public class Dictionnary {
 	    for(int i = 0; i < triplets.length; i++)
 	        s = s + getValueOf(triplets[i][0]) + " " + getValueOf(triplets[i][1]) + " " + getValueOf(triplets[i][2]) + "\n";
 	    long endTime = System.currentTimeMillis();
-		System.out.println("-Manu- Temps generation résultats " + (endTime - startTime) + " milliseconds");
+		System.out.println("-Manu- Temps generation resultats " + (endTime - startTime) + " milliseconds");
 	    return s;
 	}
 	
@@ -66,7 +66,7 @@ public class Dictionnary {
 			s+=getValueOf(Integer.valueOf(spo[0]))+" "+getValueOf(Integer.valueOf(spo[1]))+" "+getValueOf(Integer.valueOf(spo[2]))+"\n";
 		}
 		long endTime = System.currentTimeMillis();
-		System.out.println("-Flo- Temps generation résultats " + (endTime - startTime) + " milliseconds");
+		System.out.println("-Flo- Temps generation resultats " + (endTime - startTime) + " milliseconds");
 		return s;
 	}
 

@@ -64,8 +64,8 @@ public final class RDFRawParser {
 
 			} catch (IOException e) {
 			}
-			if(inter==40)
-				break;
+			//if(inter==40)
+				//break;
 			inter++;
 		}
 		long endTime = System.currentTimeMillis();
@@ -76,7 +76,7 @@ public final class RDFRawParser {
 		System.out.println("Index entries : "+IndexManager.size());
 
 		while(true){
-			System.out.print("Objet à rechercher: ");
+			System.out.print("Objet a rechercher: ");
 			Scanner sc=new Scanner(System.in);
 			String object = sc.nextLine();
 			startTime = System.currentTimeMillis();
