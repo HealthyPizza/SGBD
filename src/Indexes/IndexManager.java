@@ -39,16 +39,17 @@ public final class IndexManager {
 		return size;
 	}
 
-	public static Integer[][] dummy(Integer i) throws TripletNotFoundException{
+	/*public static Integer[][] dummy(Integer i) throws TripletNotFoundException{
 		return spo.getTriplet(i);
-	}
+	}*/
 
 	private static int getMin(Vector<Integer> predicates){
-		int min=pso.getSecondLevel(predicates.get(0)).size();
+		int min = 0;
+		min = pso.getSecondLevel(predicates.get(0)).size();
 		int index=0;
 		System.out.println("Predicates count for "+ 0+ " : "+min);
 		for(int j=1;j<predicates.size();j++){
-			int size=pso.getSecondLevel(predicates.get(j)).size();
+			int size = pso.getSecondLevel(predicates.get(j)).size();
 			System.out.println("Predicates count for "+ j+ " : "+size);
 			if(size<min){
 				min=size;
@@ -59,10 +60,14 @@ public final class IndexManager {
 		return index;
 	}
 
-	public static void subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects) throws TripletNotFoundException{
+	public static void subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
 		Vector<String> results=new Vector<String>();
 		int index=getMin(predicates);
-		Vector<Integer> temp=pos.getThirdLevel(predicates.get(index),objects.get(index));
+		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
+		if(temp==null){
+			System.out.println("Pas de résultats");
+			return;
+		}
 		Vector<Integer> temp1= new Vector<Integer>(temp);
 		System.out.println(temp.size());//d
 		predicates.remove(index);
@@ -74,10 +79,12 @@ public final class IndexManager {
 			}
 			index=getMin(predicates);
 			for(Integer i:temp){
+
 				if(!spo.getThirdLevel(i, predicates.get(index)).contains(objects.get(index))){
 					//System.out.println(spo.getThirdLevel(subject, predicates.get(0)));
 					temp1.remove(i);
 				}
+
 			}
 			predicates.remove(index);
 			objects.remove(index);
@@ -88,9 +95,9 @@ public final class IndexManager {
 		}
 	}
 
-	public static Vector<String> dummy1(Integer i){
+	/*public static Vector<String> dummy1(Integer i){
 
 		return spo.getTriplets(i);
 
-	}
+	}*/
 }

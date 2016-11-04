@@ -17,7 +17,7 @@ public class Index {
 
 
 	public HashMap<Integer, Vector<Integer>> getSecondLevel(Integer i){
-		return index.get(i);	
+			return index.get(i);
 	}
 
 	public Vector<Integer> getThirdLevel(Integer firstI,Integer secondI){
@@ -87,7 +87,7 @@ public class Index {
 		return res;
 	}
 	
-	public Integer[][] getTriplet(Integer i1) throws TripletNotFoundException
+	/*public Integer[][] getTriplet(Integer i1) throws TripletNotFoundException
 	{
 		long startTime = System.currentTimeMillis();
 		HashMap<Integer, Vector<Integer> > map = getSecondLevel(i1);
