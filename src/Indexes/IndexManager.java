@@ -68,25 +68,29 @@ public final class IndexManager {
 		v1.removeAll(v2);
 	}
 	
-	public static void subjectsForPredicate(Dictionnary dico,Integer predicate,Vector<Integer> objects){
+	/*pour un predicat et une liste d object : retourne les sujets correspondants*/
+	public static Vector<Integer> subjectsForPredicate(Dictionnary dico,Integer predicate,Vector<Integer> objects){
 		Vector<Integer> res=new Vector<Integer>();
 		for(Integer io:objects){
 			Vector<Integer> temp=pos.getThirdLevel(predicate, io);
 			if(temp!=null)
 				res.addAll(pos.getThirdLevel(predicate, io));
 		}
-		for(Integer i:res){
+		/*for(Integer i:res){
 			System.out.println(dico.getValueOf(i));
-		}
+		}*/
+		return res;
 	}
 	
-	public static void subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
-		Vector<String> results=new Vector<String>();
+	
+	/*nstarclassique*/
+	public static Vector<Integer> subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
+		//Vector<String> results=new Vector<String>();
 		int index=getMin(predicates);
 		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
 		if(temp==null){
 			System.out.println("Pas de résultats");
-			return;
+			return null;
 		}
 		Vector<Integer> temp1= new Vector<Integer>(temp);
 		System.out.println(temp.size());//d
@@ -95,7 +99,7 @@ public final class IndexManager {
 		while(!predicates.isEmpty()){
 			if(temp.size()==1){
 				System.out.println("Only one result: "+ dico.getValueOf(temp.get(0)));
-				return;
+				return temp;
 			}
 			index=getMin(predicates);
 			for(Integer i:temp){
@@ -103,19 +107,12 @@ public final class IndexManager {
 					temp1.remove(i);
 				}
 			}
-			System.out.println(temp1.size());
 			predicates.remove(index);
 			objects.remove(index);
 		}
-
 		for(Integer i:temp1){
 			System.out.println(dico.getValueOf(i));
 		}
+		return temp1;
 	}
-
-	/*public static Vector<String> dummy1(Integer i){
-
-		return spo.getTriplets(i);
-
-	}*/
 }

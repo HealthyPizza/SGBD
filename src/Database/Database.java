@@ -61,46 +61,62 @@ public class Database {
 		}
 		System.out.println("Database Ready");
 	}
-	
-	public void queryNStar(Vector<String> predicates, Vector<String> objects){
+
+	public Vector<Integer> queryNStar(Vector<String> predicates, Vector<String> objects){
 		String result="";
 		intPredicates=new Vector<Integer>();
 		intObjects=new Vector<Integer>();
 		//if(predicates.size()==objects.size())
-			for(int i=0;i<predicates.size();i++){
-				Integer iP=dico.getIndexOf(predicates.get(i));
-				Integer iO=dico.getIndexOf(objects.get(i));
-				if(iP != null && iO != null){
-					intPredicates.add(dico.getIndexOf(predicates.get(i)));
-					intObjects.add(dico.getIndexOf(objects.get(i)));
+		for(int i=0;i<predicates.size();i++){
+			Integer iP=dico.getIndexOf(predicates.get(i));
+			Integer iO=dico.getIndexOf(objects.get(i));
+			if(iP != null && iO != null){
+				intPredicates.add(dico.getIndexOf(predicates.get(i)));
+				intObjects.add(dico.getIndexOf(objects.get(i)));
 
-				}
-				else{
-					System.out.println("Pas de resultat");
-					return;
-				}
-				
-			}		
-			IndexManager.subjectByPredicates(dico, intPredicates, intObjects);
+			}
+			else{
+				System.out.println("Pas de resultat");
+				return null;
+			}
+
+		}		
+		return IndexManager.subjectByPredicates(dico, intPredicates, intObjects);
 	}
-	
-	public void queryWithPattern(String predicate,String  objectPattern){
+
+	public Vector<Integer> queryWithPattern(String predicate,String  objectPattern){
 		Integer ip=dico.getIndexOf(predicate);
 		intObjects=dico.getIndexesOf(objectPattern);
-		IndexManager.subjectsForPredicate(dico,ip, intObjects);
+		return IndexManager.subjectsForPredicate(dico,ip, intObjects);
+	}
+
+	public Vector<Integer> nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
+		Vector<String> preds=new Vector<String>();
+		Vector<String> objs=new Vector<String>();
+		Vector<Integer> regexpres=new Vector<Integer>();
+		boolean first = true;
+		for(int i=0; i<predicates.size();i++){
+			if(objectswithRE[i]==0){
+				preds.add(predicates.get(i));
+				objs.add(objects.get(i));
+			}
+			else{	
+				if(first){
+					regexpres.addAll(queryWithPattern(predicates.get(i), objects.get(i)));
+					first=false;
+				}
+				else
+					regexpres.retainAll(queryWithPattern(predicates.get(i), objects.get(i)));
+			}
+		}
+		System.out.println();
+		Vector<Integer> nstarres=queryNStar(preds, objs);
+		System.out.println(regexpres);
+		nstarres.retainAll(regexpres);
+		for(Integer i:nstarres){
+			System.out.println(dico.getValueOf(i));
+		}
+		return null;
 	}
 	
-	public void nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
-		intPredicates=new Vector<Integer>();
-		intObjects=new Vector<Integer>();
-		for(int i=0; i<objectswithRE.length;i++){
-			Integer ip= dico.getIndexOf(predicates.get(objectswithRE[i]));
-			Vector<Integer> io=dico.getIndexesOf(objects.get(objectswithRE[i]));
-			for(int j=0;j<io.size();j++){
-				intPredicates.add(ip);
-			}
-			intObjects.addAll(io);
-		}
-		
-	}
 }

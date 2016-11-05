@@ -40,7 +40,7 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
    <ub:undergraduateDegreeFrom>
       <ub:University rdf:about="http://www.University933.edu" />   </ub:undergraduateDegreeFrom>
    <ub:mastersDegreeFrom>
-      <ub:University rdf:about="http://www.University337.edu" />   </ub:mastersDegreeFrom>
+      <ub:University rdf:about="http://www.University537.edu" />   </ub:mastersDegreeFrom>
    <ub:doctoralDegreeFrom>
       <ub:University rdf:about="http://www.University413.edu" />   </ub:doctoralDegreeFrom>
    <ub:worksFor rdf:resource="http://www.Department1.University0.edu" />
@@ -108,15 +108,15 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
 
 <ub:FullProfessor rdf:about="http://www.Department1.University0.edu/FullProfessor5">
    <ub:name>FullProfessor5</ub:name>
-   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course9" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course0" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/GraduateCourse6" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/GraduateCourse7" />
    <ub:undergraduateDegreeFrom>
       <ub:University rdf:about="http://www.University325.edu" />   </ub:undergraduateDegreeFrom>
    <ub:mastersDegreeFrom>
-      <ub:University rdf:about="http://www.University192.edu" />   </ub:mastersDegreeFrom>
+      <ub:University rdf:about="http://www.University592.edu" />   </ub:mastersDegreeFrom>
    <ub:doctoralDegreeFrom>
-      <ub:University rdf:about="http://www.University363.edu" />   </ub:doctoralDegreeFrom>
+      <ub:University rdf:about="http://www.University863.edu" />   </ub:doctoralDegreeFrom>
    <ub:worksFor rdf:resource="http://www.Department1.University0.edu" />
    <ub:emailAddress>FullProfessor5@Department1.University0.edu</ub:emailAddress>
    <ub:telephone>xxx-xxx-xxxx</ub:telephone>
@@ -1422,6 +1422,7 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
 <ub:UndergraduateStudent rdf:about="http://www.Department1.University0.edu/UndergraduateStudent82">
    <ub:name>UndergraduateStudent82</ub:name>
    <ub:memberOf rdf:resource="http://www.Department1.University0.edu" />
+
    <ub:emailAddress>UndergraduateStudent82@Department1.University0.edu</ub:emailAddress>
    <ub:telephone>xxx-xxx-xxxx</ub:telephone>
    <ub:takesCourse rdf:resource="http://www.Department1.University0.edu/Course32" />

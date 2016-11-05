@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Set;
 import java.util.Vector;
 
@@ -14,7 +16,8 @@ public class Index {
 
 
 	protected HashMap<Integer, HashMap<Integer,Vector<Integer>>> index= new HashMap<Integer, HashMap<Integer,Vector<Integer>>>();
-
+	Pattern p;
+	Matcher m;
 
 	public HashMap<Integer, Vector<Integer>> getSecondLevel(Integer i){
 			return index.get(i);
