@@ -3,6 +3,8 @@ import java.net.NetworkInterface;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Log.FileLog;
 
@@ -11,6 +13,8 @@ public class Dictionnary {
 
 	protected HashMap<Integer,String> dataIndexes;
 	protected HashMap<String,Integer> dataValues;
+	Pattern p;
+	Matcher m;
 	
 	public Dictionnary() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +30,6 @@ public class Dictionnary {
 			dataIndexes.put(newIndex, o);
 			dataValues.put(o,newIndex);
 		}
-		
 		return newIndex;
 	}
 	public int size(){
@@ -35,6 +38,20 @@ public class Dictionnary {
 	
 	public Integer getIndexOf(String s){
 			return dataValues.get(s);
+	}
+	
+	public Vector<Integer> getIndexesOf(String regexp){
+		Vector<Integer> results=new Vector<Integer>();
+		System.out.println("Regexp: "+regexp);
+		p = Pattern.compile(regexp);
+		for(String key:dataValues.keySet()){
+			m = p.matcher(key);
+			while(m.find()){
+				results.add(dataValues.get(key));
+			}
+		}
+		System.out.println("Matches :" +results.size());
+		return results;
 	}
 	
 	public String getValueOf(Integer i){

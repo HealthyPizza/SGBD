@@ -34,6 +34,8 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
 <ub:FullProfessor rdf:about="http://www.Department1.University0.edu/FullProfessor1">
    <ub:name>FullProfessor1</ub:name>
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course2" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course0" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course1" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/GraduateCourse2" />
    <ub:undergraduateDegreeFrom>
       <ub:University rdf:about="http://www.University933.edu" />   </ub:undergraduateDegreeFrom>
@@ -51,6 +53,8 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
    <ub:name>FullProfessor2</ub:name>
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course3" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course4" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course0" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course1" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/GraduateCourse3" />
    <ub:undergraduateDegreeFrom>
       <ub:University rdf:about="http://www.University568.edu" />   </ub:undergraduateDegreeFrom>
@@ -68,6 +72,7 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
    <ub:name>FullProfessor3</ub:name>
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course5" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course6" />
+ 	 <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course0" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/GraduateCourse4" />
    <ub:undergraduateDegreeFrom>
       <ub:University rdf:about="http://www.University383.edu" />   </ub:undergraduateDegreeFrom>
@@ -84,7 +89,9 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
 <ub:FullProfessor rdf:about="http://www.Department1.University0.edu/FullProfessor4">
    <ub:name>FullProfessor4</ub:name>
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course7" />
-   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course8" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course4" />
+   <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course6" />
+ 	 <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/Course0" />
    <ub:teacherOf rdf:resource="http://www.Department1.University0.edu/GraduateCourse5" />
    <ub:undergraduateDegreeFrom>
       <ub:University rdf:about="http://www.University70.edu" />   </ub:undergraduateDegreeFrom>
@@ -8420,6 +8427,7 @@ xmlns:ub="http://swat.cse.lehigh.edu/onto/univ-bench.owl#">
 <ub:Course rdf:about="http://www.Department1.University0.edu/Course20">
    <ub:name>Course20</ub:name>
 </ub:Course>
+
 
 <ub:Course rdf:about="http://www.Department1.University0.edu/Course21">
    <ub:name>Course21</ub:name>

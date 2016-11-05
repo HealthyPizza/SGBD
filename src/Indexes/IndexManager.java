@@ -43,23 +43,43 @@ public final class IndexManager {
 		return spo.getTriplet(i);
 	}*/
 
+	public static int getCount(Integer i){
+		return pso.getSecondLevel(i).size();
+	}
+	
 	private static int getMin(Vector<Integer> predicates){
 		int min = 0;
 		min = pso.getSecondLevel(predicates.get(0)).size();
 		int index=0;
-		System.out.println("Predicates count for "+ 0+ " : "+min);
+		//System.out.println("Predicates count for "+ 0+ " : "+min);
 		for(int j=1;j<predicates.size();j++){
 			int size = pso.getSecondLevel(predicates.get(j)).size();
-			System.out.println("Predicates count for "+ j+ " : "+size);
+			//System.out.println("Predicates count for "+ j+ " : "+size);
 			if(size<min){
 				min=size;
 				index=j;
 			}
 		}
-		System.out.println("Return: "+index);
+		//System.out.println("Return: "+index);
 		return index;
 	}
 
+	private static void intersection(Vector<Integer> v1, Vector<Integer> v2){
+		v1.removeAll(v2);
+	}
+	
+	public static void subjectsForPredicate(Dictionnary dico,Integer predicate,Vector<Integer> objects){
+		Vector<Integer> res=new Vector<Integer>();
+		for(Integer io:objects){
+			Vector<Integer> temp=pos.getThirdLevel(predicate, io);
+			if(temp!=null)
+				res.addAll(pos.getThirdLevel(predicate, io));
+		}
+		for(Integer i:res){
+			System.out.println(dico.getValueOf(i));
+		}
+	}
+	
 	public static void subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
 		Vector<String> results=new Vector<String>();
 		int index=getMin(predicates);
@@ -79,13 +99,11 @@ public final class IndexManager {
 			}
 			index=getMin(predicates);
 			for(Integer i:temp){
-
 				if(!spo.getThirdLevel(i, predicates.get(index)).contains(objects.get(index))){
-					//System.out.println(spo.getThirdLevel(subject, predicates.get(0)));
 					temp1.remove(i);
 				}
-
 			}
+			System.out.println(temp1.size());
 			predicates.remove(index);
 			objects.remove(index);
 		}
