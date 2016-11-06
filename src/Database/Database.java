@@ -25,6 +25,9 @@ public class Database {
 	Matcher m;
 	Vector<Integer> intPredicates;
 	Vector<Integer> intObjects;
+	Vector<Integer> results;
+	long startTime;
+	long endTime;
 
 	private static class RDFListener extends RDFHandlerBase {
 
@@ -42,7 +45,7 @@ public class Database {
 		dico=new Dictionnary();
 		IndexManager.initIndexes();
 		File files= new File("./dataset");
-		int inter=0;
+		startTime=System.nanoTime();
 		for(File file:files.listFiles()){
 			try {
 				Reader reader = new FileReader(file);
@@ -55,15 +58,13 @@ public class Database {
 			} catch (Exception e) {
 
 			}
-			//if(inter==40)
-			//break;
-			inter++;
 		}
-		System.out.println("Database Ready");
+		endTime=System.nanoTime();
+		System.out.println("Database ready - " + ((endTime - startTime) / 1000000) + "ms");
 	}
 
 	public Vector<Integer> queryNStar(Vector<String> predicates, Vector<String> objects){
-		String result="";
+		startTime=System.nanoTime();
 		intPredicates=new Vector<Integer>();
 		intObjects=new Vector<Integer>();
 		//if(predicates.size()==objects.size())
@@ -80,8 +81,11 @@ public class Database {
 				return null;
 			}
 
-		}		
-		return IndexManager.subjectByPredicates(dico, intPredicates, intObjects);
+		}	
+		results= IndexManager.subjectByPredicates(dico, intPredicates, intObjects);
+		endTime = System.nanoTime();
+		printResults();
+		return results;
 	}
 
 	public Vector<Integer> queryWithPattern(String predicate,String  objectPattern){
@@ -91,6 +95,7 @@ public class Database {
 	}
 
 	public Vector<Integer> nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
+		startTime=System.nanoTime();
 		Vector<String> preds=new Vector<String>();
 		Vector<String> objs=new Vector<String>();
 		Vector<Integer> regexpres=new Vector<Integer>();
@@ -109,14 +114,19 @@ public class Database {
 					regexpres.retainAll(queryWithPattern(predicates.get(i), objects.get(i)));
 			}
 		}
-		System.out.println();
 		Vector<Integer> nstarres=queryNStar(preds, objs);
-		System.out.println(regexpres);
 		nstarres.retainAll(regexpres);
-		for(Integer i:nstarres){
+		results=nstarres;
+		printResults();
+		return null;
+	}
+	
+	public void printResults(){
+		System.out.println(results.size() + " results.");
+		System.out.println("Time: " + ((endTime - startTime) / 1000000) + "ms");
+		for(Integer i:results){
 			System.out.println(dico.getValueOf(i));
 		}
-		return null;
 	}
 	
 }

@@ -42,7 +42,6 @@ public class Dictionnary {
 	
 	public Vector<Integer> getIndexesOf(String regexp){
 		Vector<Integer> results=new Vector<Integer>();
-		System.out.println("Regexp: "+regexp);
 		p = Pattern.compile(regexp);
 		for(String key:dataValues.keySet()){
 			m = p.matcher(key);
@@ -50,7 +49,6 @@ public class Dictionnary {
 				results.add(dataValues.get(key));
 			}
 		}
-		System.out.println("Matches :" +results.size());
 		return results;
 	}
 	

@@ -51,16 +51,13 @@ public final class IndexManager {
 		int min = 0;
 		min = pso.getSecondLevel(predicates.get(0)).size();
 		int index=0;
-		//System.out.println("Predicates count for "+ 0+ " : "+min);
 		for(int j=1;j<predicates.size();j++){
 			int size = pso.getSecondLevel(predicates.get(j)).size();
-			//System.out.println("Predicates count for "+ j+ " : "+size);
 			if(size<min){
 				min=size;
 				index=j;
 			}
 		}
-		//System.out.println("Return: "+index);
 		return index;
 	}
 
@@ -76,12 +73,8 @@ public final class IndexManager {
 			if(temp!=null)
 				res.addAll(pos.getThirdLevel(predicate, io));
 		}
-		/*for(Integer i:res){
-			System.out.println(dico.getValueOf(i));
-		}*/
 		return res;
 	}
-	
 	
 	/*nstarclassique*/
 	public static Vector<Integer> subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
@@ -93,12 +86,10 @@ public final class IndexManager {
 			return null;
 		}
 		Vector<Integer> temp1= new Vector<Integer>(temp);
-		System.out.println(temp.size());//d
 		predicates.remove(index);
 		objects.remove(index);
 		while(!predicates.isEmpty()){
 			if(temp.size()==1){
-				System.out.println("Only one result: "+ dico.getValueOf(temp.get(0)));
 				return temp;
 			}
 			index=getMin(predicates);
@@ -109,9 +100,6 @@ public final class IndexManager {
 			}
 			predicates.remove(index);
 			objects.remove(index);
-		}
-		for(Integer i:temp1){
-			System.out.println(dico.getValueOf(i));
 		}
 		return temp1;
 	}
