@@ -1,5 +1,5 @@
 bin
 log.txt
-dataset
+dataset/*.owl
 resultsF.txt
 resultsM.txt
