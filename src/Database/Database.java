@@ -63,6 +63,8 @@ public class Database {
 		}
 		endTime=System.nanoTime();
 		System.out.println("Database ready - " + ((endTime - startTime) / 1000000) + "ms");
+		dico.printStats();
+		IndexManager.printStats();
 	}
 	
 
@@ -101,8 +103,13 @@ public class Database {
 		intObjects=dico.getIndexesOf(objectPattern);
 		return IndexManager.subjectsForPredicate(dico,ip, intObjects);
 	}
+	
+	public Vector<Integer> queryWithPattern(Integer predicate,String  objectPattern){
+		intObjects=dico.getIndexesOf(objectPattern);
+		return IndexManager.subjectsForPredicate(dico,predicate, intObjects);
+	}
 
-	public Vector<Integer> nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
+	/*public Vector<Integer> nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
 		startTime=System.nanoTime();
 		results=null;
 		Vector<String> preds=new Vector<String>();
@@ -132,13 +139,41 @@ public class Database {
 		results=nstarres;
 		endTime = System.nanoTime();
 		return null;
+	}*/
+	
+	public void nstarRegexp(Vector<String> predicates, Vector<String> objects){
+		startTime=System.nanoTime();
+		results=null;
+		intPredicates=new Vector<Integer>();
+		boolean found=true;
+		//if(predicates.size()==objects.size())
+		for(int i=0;i<predicates.size();i++){
+			Integer iP=dico.getIndexOf(predicates.get(i));
+			if(iP != null){
+				intPredicates.add(dico.getIndexOf(predicates.get(i)));
+			}
+		}
+		int index=IndexManager.getMin(intPredicates);
+		Integer ip= intPredicates.get(index);
+		Vector<Integer> temp= queryWithPattern(ip, objects.get(index));
+		results=new Vector<Integer>(temp);
+		intPredicates.remove(index);
+		objects.remove(index);
+		while(!intPredicates.isEmpty()){
+			index=IndexManager.getMin(intPredicates);
+			ip= intPredicates.get(index);
+			temp= queryWithPattern(ip, objects.get(index));
+			results.retainAll(temp);
+			intPredicates.remove(index);
+			objects.remove(index);
+		}
+		endTime = System.nanoTime();
 	}
 
 	public void queryPath(Vector<String> predicates, Vector<String> objects){
 		Vector<Integer> temp=queryWithPattern(predicates.lastElement(), objects.lastElement());
 		results=new Vector<Integer>();
 		for(int i=predicates.size()-2;i>=0;i--){
-			System.out.println("Predicateloop: "+predicates.get(i));
 			Integer ip= dico.getIndexOf(predicates.get(i));
 			temp=IndexManager.subjectsForPredicate(dico, ip, temp);
 			
@@ -153,7 +188,7 @@ public class Database {
 			System.out.println("No results.");
 		}
 		else{
-			System.out.println(results.size() + " results found.");
+			System.out.println(results.size() + " result(s) found.");
 			for(Integer i:results){
 				System.out.println(dico.getValueOf(i));
 			}

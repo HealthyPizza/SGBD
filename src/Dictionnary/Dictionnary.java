@@ -85,6 +85,9 @@ public class Dictionnary {
 		return s;
 	}
 
+	public void printStats(){
+		System.out.println(dataIndexes.size()+" elements in dictionnary.");
+	}
 	
 	public static void main(String[] args) {
 		Dictionnary d = new Dictionnary();

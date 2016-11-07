@@ -29,6 +29,8 @@ public final class RDFRawParser {
 		//objects.add("xxx-xxx-xxxx");
 		objects.add("http://www.Department1.University0.edu/Course0");
 		objects.add("http://www.University509.edu");
+		
+		
 		//objects.add("http://www.Department1.University0.edu/Course3");
 
 		//db.nstarRegexp(predicates, objects, new int[]{0});
@@ -37,7 +39,10 @@ public final class RDFRawParser {
 		//objects.add("http://www.University0.edu");
 		db.queryNStar(predicates, objects);
 		db.printResults();
-		objects.set(1, "University5");
+		
+		db.nstarRegexp(predicates, objects);
+		db.printResults();
+		/*objects.set(1, "University5");
 		predicates.addElement("http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom");
 		objects.add("University8");
 		db.nstarRegexp(predicates, objects, new int[]{0,1,1});
@@ -50,7 +55,7 @@ public final class RDFRawParser {
 
 		objects.add("GraduateCourse16");
 		db.queryPath(predicates, objects);
-		db.printResults();
+		db.printResults();*/
 		
 	}
 }
