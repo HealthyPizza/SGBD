@@ -43,6 +43,14 @@ public final class RDFRawParser {
 		db.nstarRegexp(predicates, objects, new int[]{0,1,1});
 		db.printResults();
 		
+		predicates=new Vector<String>();
+		objects=new Vector<String>();
+		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse");
+		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#name");
+
+		objects.add("GraduateCourse16");
+		db.queryPath(predicates, objects);
+		db.printResults();
 		
 	}
 }

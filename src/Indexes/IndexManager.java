@@ -64,7 +64,12 @@ public final class IndexManager {
 	private static void intersection(Vector<Integer> v1, Vector<Integer> v2){
 		v1.removeAll(v2);
 	}
-	
+	public static boolean anySubjectForPO(Integer predicate,Integer object){
+		Vector<Integer> temp=pos.getThirdLevel(predicate, object);
+		if(temp == null || temp.isEmpty())
+			return false;
+		return true;
+	}
 	/*pour un predicat et une liste d object : retourne les sujets correspondants*/
 	public static Vector<Integer> subjectsForPredicate(Dictionnary dico,Integer predicate,Vector<Integer> objects){
 		Vector<Integer> res=new Vector<Integer>();

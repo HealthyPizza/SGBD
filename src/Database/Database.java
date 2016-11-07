@@ -93,6 +93,7 @@ public class Database {
 		return results;
 	}
 
+
 	public Vector<Integer> queryWithPattern(String predicate,String  objectPattern){
 		Integer ip=dico.getIndexOf(predicate);
 		if(ip==null)
@@ -133,6 +134,19 @@ public class Database {
 		return null;
 	}
 
+	public void queryPath(Vector<String> predicates, Vector<String> objects){
+		Vector<Integer> temp=queryWithPattern(predicates.lastElement(), objects.lastElement());
+		results=new Vector<Integer>();
+		for(int i=predicates.size()-2;i>=0;i--){
+			System.out.println("Predicateloop: "+predicates.get(i));
+			Integer ip= dico.getIndexOf(predicates.get(i));
+			temp=IndexManager.subjectsForPredicate(dico, ip, temp);
+			
+		}
+		results=temp;
+		
+	}
+	
 	public void printResults(){
 		System.out.println("Time: " + ((endTime - startTime) / 1000000) + "ms");
 		if(results==null){
