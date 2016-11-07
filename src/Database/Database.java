@@ -109,45 +109,12 @@ public class Database {
 		intObjects=dico.getIndexesOf(objectPattern);
 		return IndexManager.subjectsForPredicate(dico,predicate, intObjects);
 	}
-
-	/*public Vector<Integer> nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
-		startTime=System.nanoTime();
-		results=null;
-		Vector<String> preds=new Vector<String>();
-		Vector<String> objs=new Vector<String>();
-		Vector<Integer> regexpres=new Vector<Integer>();
-		boolean first = true;
-		for(int i=0; i<predicates.size();i++){
-			if(objectswithRE[i]==0){
-				preds.add(predicates.get(i));
-				objs.add(objects.get(i));
-			}
-			else{
-				Vector<Integer> temp=queryWithPattern(predicates.get(i), objects.get(i));
-				if(temp==null)
-					return null;
-				if(first){
-					regexpres.addAll(temp);
-					first=false;
-				}
-				else
-					regexpres.retainAll(temp);
-			}
-		}
-		Vector<Integer> nstarres=queryNStar(preds, objs);
-		if(nstarres!=null)
-			nstarres.retainAll(regexpres);
-		results=nstarres;
-		endTime = System.nanoTime();
-		return null;
-	}*/
 	
 	public void nstarRegexp(Vector<String> predicates, Vector<String> objects){
 		startTime=System.nanoTime();
 		results=null;
 		intPredicates=new Vector<Integer>();
 		boolean found=true;
-		//if(predicates.size()==objects.size())
 		for(int i=0;i<predicates.size();i++){
 			Integer iP=dico.getIndexOf(predicates.get(i));
 			if(iP != null){
@@ -188,11 +155,11 @@ public class Database {
 	
 	public void printResults(){
 		System.out.println("Time: " + ((endTime - startTime) / 1000000) + "ms");
-		FileLog.write("Time: " + ((endTime - startTime) / 1000000) + "ms");
+		FileLog.writeTime("Time: " + ((endTime - startTime) / 1000000) + "ms");
 		String s="";
 		if(results==null){
 			System.out.println("No results.");
-			FileLog.write("No results.");
+			FileLog.writeLog("No results.");
 		}
 		else{
 			System.out.println(results.size() + " result(s) found.");
@@ -201,7 +168,7 @@ public class Database {
 				
 			}
 			System.out.println(s);
-			FileLog.write(s);
+			FileLog.writeLog(s);
 		}
 	}
 

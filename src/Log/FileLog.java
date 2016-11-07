@@ -6,10 +6,12 @@ import java.io.IOException;
 public final class FileLog {
 
 	private static FileWriter writer;
+	private static FileWriter time;
 
-	public static void createLog(String name) {
+	public static void createLog() {
 		try {
-			writer=new FileWriter(new File(name+".txt"));
+			writer=new FileWriter(new File("log.txt"));
+			time=new FileWriter(new File("time.txt"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -17,7 +19,7 @@ public final class FileLog {
 
 	}
 	
-	public static void write(String s){
+	public static void writeLog(String s){
 		if(writer!=null){
 			try {
 				writer.write(s+"\n");
@@ -28,11 +30,25 @@ public final class FileLog {
 		}
 	}
 	
+	public static void writeTime(String s){
+		if(time!=null){
+			try {
+				time.write(s+"\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 	public static void endLog(){
 		if(writer!=null){
 			try {
 				writer.flush();
+				time.flush();
 				writer.close();
+				time.flush();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

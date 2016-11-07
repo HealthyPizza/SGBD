@@ -14,7 +14,7 @@ public final class RDFRawParser {
 	/*http://swat.cse.lehigh.edu/onto/univ-bench.owl#University*/
 	public static void main(String args[]) throws InterruptedException{
 
-		FileLog.createLog("log");
+		FileLog.createLog();
 		/*http://www.w3.org/1999/02/22-rdf-syntax-ns#type*/
 		Database db=new Database("./dataset");
 		
