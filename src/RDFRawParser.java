@@ -3,6 +3,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openrdf.model.Statement;
+import org.openrdf.rio.RDFFormat;
 
 import Database.Database;
 import Log.FileLog;
@@ -16,7 +17,7 @@ public final class RDFRawParser {
 
 		FileLog.createLog();
 		/*http://www.w3.org/1999/02/22-rdf-syntax-ns#type*/
-		Database db=new Database("./dataset");
+		Database db=new Database("./dataset",RDFFormat.RDFXML);
 		
 		Vector<String> predicates=new Vector<String>();
 		Vector<String> objects=new Vector<String>();

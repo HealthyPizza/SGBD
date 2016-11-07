@@ -42,7 +42,7 @@ public class Database {
 
 	};
 
-	public Database(String datasetPath) {
+	public Database(String datasetPath,RDFFormat format) {
 		dico=new Dictionnary();
 		IndexManager.initIndexes();
 		File files= new File(datasetPath);
@@ -52,7 +52,7 @@ public class Database {
 				try {
 					Reader reader = new FileReader(file);
 					org.openrdf.rio.RDFParser rdfParser = Rio
-							.createParser(RDFFormat.RDFXML);
+							.createParser(format);
 					rdfParser.setRDFHandler(new RDFListener());
 					rdfParser.parse(reader, "");
 					reader.close();
