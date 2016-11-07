@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import org.openrdf.model.Statement;
 
 import Database.Database;
+import Log.FileLog;
 
 
 public final class RDFRawParser {
@@ -13,39 +14,26 @@ public final class RDFRawParser {
 	/*http://swat.cse.lehigh.edu/onto/univ-bench.owl#University*/
 	public static void main(String args[]) throws InterruptedException{
 
-		
+		FileLog.createLog("log");
 		/*http://www.w3.org/1999/02/22-rdf-syntax-ns#type*/
 		Database db=new Database("./dataset");
 		
 		Vector<String> predicates=new Vector<String>();
 		Vector<String> objects=new Vector<String>();
-		//predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#telephone");
-		//predicates.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 		
+		
+		System.out.println("?x teacherOf http://www.Department1.University0.edu/Course0 . ?x #mastersDegreeFrom http://www.University509.edu\n");
 		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf");
 		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom");
-		//predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf");
-
-		//objects.add("xxx-xxx-xxxx");
 		objects.add("http://www.Department1.University0.edu/Course0");
 		objects.add("http://www.University509.edu");
-		
-		
-		//objects.add("http://www.Department1.University0.edu/Course3");
-
-		//db.nstarRegexp(predicates, objects, new int[]{0});
-		
-		//db.queryWithPattern("http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf", "Department4.University3"); //les profs d'un cour du dep4 univ3
-		//objects.add("http://www.University0.edu");
 		db.queryNStar(predicates, objects);
 		db.printResults();
 		
+		objects.remove(1);
+		objects.add("http://www.University5..\\.edu");
+		System.out.println("?x teacherOf http://www.Department1.University0.edu/Course0 . ?x #mastersDegreeFrom http://www.University5**.edu");
 		db.nstarRegexp(predicates, objects);
-		db.printResults();
-		/*objects.set(1, "University5");
-		predicates.addElement("http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom");
-		objects.add("University8");
-		db.nstarRegexp(predicates, objects, new int[]{0,1,1});
 		db.printResults();
 		
 		predicates=new Vector<String>();
@@ -53,9 +41,12 @@ public final class RDFRawParser {
 		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse");
 		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#name");
 
+		System.out.println("?x takesCourse ?x1 . ?x1 #name GraduateCourse16");
 		objects.add("GraduateCourse16");
 		db.queryPath(predicates, objects);
-		db.printResults();*/
+		db.printResults();
+		
+		FileLog.endLog();
 		
 	}
 }

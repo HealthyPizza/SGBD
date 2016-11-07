@@ -17,6 +17,7 @@ import org.openrdf.rio.helpers.RDFHandlerBase;
 
 import Dictionnary.Dictionnary;
 import Indexes.IndexManager;
+import Log.FileLog;
 
 public class Database {
 
@@ -171,6 +172,8 @@ public class Database {
 	}
 
 	public void queryPath(Vector<String> predicates, Vector<String> objects){
+		startTime=System.nanoTime();
+
 		Vector<Integer> temp=queryWithPattern(predicates.lastElement(), objects.lastElement());
 		results=new Vector<Integer>();
 		for(int i=predicates.size()-2;i>=0;i--){
@@ -179,19 +182,26 @@ public class Database {
 			
 		}
 		results=temp;
-		
+		endTime = System.nanoTime();
+
 	}
 	
 	public void printResults(){
 		System.out.println("Time: " + ((endTime - startTime) / 1000000) + "ms");
+		FileLog.write("Time: " + ((endTime - startTime) / 1000000) + "ms");
+		String s="";
 		if(results==null){
 			System.out.println("No results.");
+			FileLog.write("No results.");
 		}
 		else{
 			System.out.println(results.size() + " result(s) found.");
 			for(Integer i:results){
-				System.out.println(dico.getValueOf(i));
+				s+=dico.getValueOf(i)+"\n";
+				
 			}
+			System.out.println(s);
+			FileLog.write(s);
 		}
 	}
 

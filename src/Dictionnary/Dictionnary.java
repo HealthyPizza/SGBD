@@ -1,12 +1,9 @@
 package Dictionnary;
-import java.net.NetworkInterface;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Log.FileLog;
 
 
 public class Dictionnary {
@@ -26,7 +23,6 @@ public class Dictionnary {
 		int newIndex = -1;
 		if(!dataValues.containsKey(o)){
 			newIndex=dataIndexes.size()+1;
-			FileLog.logInsert(newIndex +" - "+ o);
 			dataIndexes.put(newIndex, o);
 			dataValues.put(o,newIndex);
 		}
@@ -87,16 +83,5 @@ public class Dictionnary {
 
 	public void printStats(){
 		System.out.println(dataIndexes.size()+" elements in dictionnary.");
-	}
-	
-	public static void main(String[] args) {
-		Dictionnary d = new Dictionnary();
-		String value=new String("Test");
-		String value1=new String("Test1");
-		String value2=new String("Test2");
-		//d.put(value).put(value1).put(value2).put(value1).put(value2);
-		System.out.println(d.toString());
-		System.out.println("Value of 2: "+d.getValueOf(2));
-		System.out.println("Index of Test2: "+d.getIndexOf("Test2"));
 	}
 }

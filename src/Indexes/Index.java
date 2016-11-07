@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.Vector;
 
 import Dictionnary.Dictionnary;
-import Log.FileLog;
 
 public class Index {
 
@@ -33,7 +32,6 @@ public class Index {
 
 	public void insert(Integer i1,Integer i2,Integer i3){
 
-		FileLog.write("<"+i1+","+i2+","+i3+">");
 		HashMap<Integer,Vector<Integer>> lvl1 = getSecondLevel(i1);
 		if(lvl1==null){
 			Vector<Integer> vect = new Vector<Integer>();
