@@ -15,7 +15,7 @@ public final class RDFRawParser {
 
 		
 		/*http://www.w3.org/1999/02/22-rdf-syntax-ns#type*/
-		Database db=new Database();
+		Database db=new Database("./dataset");
 		
 		Vector<String> predicates=new Vector<String>();
 		Vector<String> objects=new Vector<String>();
@@ -36,10 +36,12 @@ public final class RDFRawParser {
 		//db.queryWithPattern("http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf", "Department4.University3"); //les profs d'un cour du dep4 univ3
 		//objects.add("http://www.University0.edu");
 		db.queryNStar(predicates, objects);
+		db.printResults();
 		objects.set(1, "University5");
 		predicates.addElement("http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom");
 		objects.add("University8");
 		db.nstarRegexp(predicates, objects, new int[]{0,1,1});
+		db.printResults();
 		
 		
 	}

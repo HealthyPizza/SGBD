@@ -78,11 +78,9 @@ public final class IndexManager {
 	
 	/*nstarclassique*/
 	public static Vector<Integer> subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
-		//Vector<String> results=new Vector<String>();
 		int index=getMin(predicates);
 		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
 		if(temp==null){
-			System.out.println("Pas de résultats");
 			return null;
 		}
 		Vector<Integer> temp1= new Vector<Integer>(temp);

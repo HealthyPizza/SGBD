@@ -41,32 +41,37 @@ public class Database {
 
 	};
 
-	public Database() {
+	public Database(String datasetPath) {
 		dico=new Dictionnary();
 		IndexManager.initIndexes();
-		File files= new File("./dataset");
+		File files= new File(datasetPath);
 		startTime=System.nanoTime();
 		for(File file:files.listFiles()){
-			try {
-				Reader reader = new FileReader(file);
-				org.openrdf.rio.RDFParser rdfParser = Rio
-						.createParser(RDFFormat.RDFXML);
-				rdfParser.setRDFHandler(new RDFListener());
-				rdfParser.parse(reader, "");
-				reader.close();
+			if(file.isFile()){
+				try {
+					Reader reader = new FileReader(file);
+					org.openrdf.rio.RDFParser rdfParser = Rio
+							.createParser(RDFFormat.RDFXML);
+					rdfParser.setRDFHandler(new RDFListener());
+					rdfParser.parse(reader, "");
+					reader.close();
 
-			} catch (Exception e) {
+				} catch (Exception e) {
 
+				}
 			}
 		}
 		endTime=System.nanoTime();
 		System.out.println("Database ready - " + ((endTime - startTime) / 1000000) + "ms");
 	}
+	
 
 	public Vector<Integer> queryNStar(Vector<String> predicates, Vector<String> objects){
 		startTime=System.nanoTime();
+		results=null;
 		intPredicates=new Vector<Integer>();
 		intObjects=new Vector<Integer>();
+		boolean found=true;
 		//if(predicates.size()==objects.size())
 		for(int i=0;i<predicates.size();i++){
 			Integer iP=dico.getIndexOf(predicates.get(i));
@@ -77,25 +82,28 @@ public class Database {
 
 			}
 			else{
-				System.out.println("Pas de resultat");
-				return null;
+				found=false;
+				break;
 			}
 
-		}	
-		results= IndexManager.subjectByPredicates(dico, intPredicates, intObjects);
+		}
+		if(found)
+			results= IndexManager.subjectByPredicates(dico, intPredicates, intObjects);
 		endTime = System.nanoTime();
-		printResults();
 		return results;
 	}
 
 	public Vector<Integer> queryWithPattern(String predicate,String  objectPattern){
 		Integer ip=dico.getIndexOf(predicate);
+		if(ip==null)
+			return null;
 		intObjects=dico.getIndexesOf(objectPattern);
 		return IndexManager.subjectsForPredicate(dico,ip, intObjects);
 	}
 
 	public Vector<Integer> nstarRegexp(Vector<String> predicates, Vector<String> objects, int[] objectswithRE){
 		startTime=System.nanoTime();
+		results=null;
 		Vector<String> preds=new Vector<String>();
 		Vector<String> objs=new Vector<String>();
 		Vector<Integer> regexpres=new Vector<Integer>();
@@ -105,28 +113,37 @@ public class Database {
 				preds.add(predicates.get(i));
 				objs.add(objects.get(i));
 			}
-			else{	
+			else{
+				Vector<Integer> temp=queryWithPattern(predicates.get(i), objects.get(i));
+				if(temp==null)
+					return null;
 				if(first){
-					regexpres.addAll(queryWithPattern(predicates.get(i), objects.get(i)));
+					regexpres.addAll(temp);
 					first=false;
 				}
 				else
-					regexpres.retainAll(queryWithPattern(predicates.get(i), objects.get(i)));
+					regexpres.retainAll(temp);
 			}
 		}
 		Vector<Integer> nstarres=queryNStar(preds, objs);
-		nstarres.retainAll(regexpres);
+		if(nstarres!=null)
+			nstarres.retainAll(regexpres);
 		results=nstarres;
-		printResults();
+		endTime = System.nanoTime();
 		return null;
 	}
-	
+
 	public void printResults(){
-		System.out.println(results.size() + " results.");
 		System.out.println("Time: " + ((endTime - startTime) / 1000000) + "ms");
-		for(Integer i:results){
-			System.out.println(dico.getValueOf(i));
+		if(results==null){
+			System.out.println("No results.");
+		}
+		else{
+			System.out.println(results.size() + " results found.");
+			for(Integer i:results){
+				System.out.println(dico.getValueOf(i));
+			}
 		}
 	}
-	
+
 }
