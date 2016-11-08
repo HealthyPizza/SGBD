@@ -1,12 +1,8 @@
 import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.openrdf.model.Statement;
 import org.openrdf.rio.RDFFormat;
-
 import Database.Database;
 import Log.FileLog;
+import Parsing.Parser;
 
 
 public final class RDFRawParser {
@@ -23,7 +19,11 @@ public final class RDFRawParser {
 		Vector<String> objects=new Vector<String>();
 		
 		
-		System.out.println("?x teacherOf http://www.Department1.University0.edu/Course0 . ?x #mastersDegreeFrom http://www.University509.edu\n");
+		System.out.println("?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf http://www.Department1.University0.edu/Course0 . ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf http://www.University509.edu");
+		
+		//Parser p=new Parser();
+		//p.parse("SELECT ?x WHERE ?x teacherOf http://www.Department1.University0.edu/Course0 . ?x #mastersDegreeFrom http://www.University509.edu");
+		//System.out.println(p.getPredicates()+" " + p.getObjects());
 		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf");
 		predicates.add("http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom");
 		objects.add("http://www.Department1.University0.edu/Course0");
