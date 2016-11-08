@@ -67,7 +67,7 @@ public final class IndexManager {
 		for(Integer io:objects){
 			Vector<Integer> temp=pos.getThirdLevel(predicate, io);
 			if(temp!=null)
-				res.addAll(pos.getThirdLevel(predicate, io));
+				res.addAll(temp);
 		}
 		return res;
 	}

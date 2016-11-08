@@ -1,0 +1,4 @@
+SELECT ?x WHERE ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf http://www.Department1.University0.edu/Course0 . ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom http://www.University509.edu
+SELECT ?x WHERE ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor http://www.Department1.University0.edu/GraduateStudent56 . ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor http://www.Department1.University0.edu/GraduateStudent56
+SELECT ?x WHERE ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#worksFor http://www.Department4.University0.edu . ?x http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://swat.cse.lehigh.edu/onto/univ-bench.owl#Lecturer
+SELECT ?x WHERE ?x http://swat.cse.lehigh.edu/onto/univ-bench.owl#takesCourse ?x1 . ?x1 http://swat.cse.lehigh.edu/onto/univ-bench.owl#name GraduateCourse16
