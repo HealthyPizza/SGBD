@@ -63,7 +63,7 @@ public class Database {
 			}
 		}
 		endTime=System.nanoTime();
-		System.out.println("Database ready - " + ((endTime - startTime) / 1000000) + "ms");
+		System.out.println("Database ready - " + ((endTime - startTime) / 1000000) + " ms");
 		dico.printStats();
 		IndexManager.printStats();
 	}
@@ -154,8 +154,8 @@ public class Database {
 	}
 	
 	public void printResults(){
-		System.out.println("Time: " + ((endTime - startTime) / 1000000) + "ms");
-		FileLog.writeTime("Time: " + ((endTime - startTime) / 1000000) + "ms");
+		System.out.println("Time: " + ((endTime - startTime))  + " ns");
+		FileLog.writeTime("Time: " + ((endTime - startTime))  + " ns");
 		String s="";
 		if(results==null){
 			System.out.println("No results.");
@@ -167,7 +167,7 @@ public class Database {
 				s+=dico.getValueOf(i)+"\n";
 				
 			}
-			System.out.println(s);
+			//System.out.println(s);
 			FileLog.writeLog(s);
 		}
 	}
