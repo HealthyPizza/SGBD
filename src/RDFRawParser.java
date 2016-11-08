@@ -12,7 +12,7 @@ public final class RDFRawParser {
 	public static void main(String args[]) throws InterruptedException{
 
 		FileLog.createLog();
-		/*http://www.w3.org/1999/02/22-rdf-syntax-ns#type//*/
+		/*http://www.w3.org/1999/02/22-rdf-syntax-ns#type*/
 		Database db=new Database("./dataset",RDFFormat.RDFXML);
 		
 		Vector<String> predicates=new Vector<String>();
