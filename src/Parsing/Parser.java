@@ -29,14 +29,14 @@ public class Parser {
 			predicates.add(temp2[1].replaceAll(" ", ""));
 			objects.add(temp2[2].replaceAll(" ", ""));
 		}
+		checkPath();
 
 	}
 	
-	public void test(){
+	public void checkPath(){
 		isPath=false;
 		for(int i=0;i<objects.size()-1;i++){
 			if(objects.get(i).contains("?")){
-				System.out.println(subjects.get(i+1)+ " " + objects.get(i));
 				if(subjects.get(i+1).compareTo(objects.get(i))==0){
 					isPath=true;
 				}

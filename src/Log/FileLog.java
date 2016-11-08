@@ -10,8 +10,8 @@ public final class FileLog {
 
 	public static void createLog() {
 		try {
-			writer=new FileWriter(new File("log.txt"));
-			time=new FileWriter(new File("time.txt"));
+			writer=new FileWriter(new File("log.csv"));
+			time=new FileWriter(new File("time.csv"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

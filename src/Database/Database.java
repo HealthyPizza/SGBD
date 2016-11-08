@@ -159,7 +159,7 @@ public class Database {
 		String s="";
 		if(results==null){
 			System.out.println("No results.");
-			FileLog.writeLog("No results.");
+			FileLog.writeLog("No results.\n");
 		}
 		else{
 			System.out.println(results.size() + " result(s) found.");
