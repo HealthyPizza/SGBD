@@ -1,2 +1,2 @@
 pour lancer:
- java -jar SGBD.jar datasetFile requettes
+ java -jar SGBD.jar datasetDir requettes
