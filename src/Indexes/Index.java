@@ -88,7 +88,9 @@ public class Index {
 		return res;
 	}
 	
-	/*public Integer[][] getTriplet(Integer i1) throws TripletNotFoundException
+	/*
+	 * Not used
+	 * public Integer[][] getTriplet(Integer i1) throws TripletNotFoundException
 	{
 		long startTime = System.currentTimeMillis();
 		HashMap<Integer, Vector<Integer> > map = getSecondLevel(i1);
@@ -135,37 +137,6 @@ public class Index {
 			t++;
 		}
 		return triplets;
-	}  
-
+	}  */
 	
-	public static void main(String[] args) {
-		FileLog.createLog();
-		Dictionnary d=new Dictionnary();
-		d.put("Alice");
-		d.put("Pierre");
-		d.put("Michel");
-		d.put("knows");
-		d.put("hates");
-		System.out.println(d.toString());
-		Index spo = new Index();
-		spo.insert(1, 4, 2);
-		spo.insert(1, 4, 3);
-		spo.insert(3, 4, 2);
-		spo.insert(1,5,3);
-		spo.toString();
-		System.out.println(spo.getTriplets(1).toString());
-		System.out.println(spo.getTriplets(1,5).toString());
-
-		try {
-			System.out.println(d.tripletsRDF(spo.getTriplet(1)));
-		} catch (TripletNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		FileLog.endLog();
-	}
-
-/*	public abstract Integer getSubject();
-	public abstract Integer getObject();
-	public abstract Integer getPredicate();*/
 }

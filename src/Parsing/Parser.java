@@ -56,7 +56,6 @@ public class Parser {
 		return predicates;
 	}
 
-
 	public Vector<String> getObjects() {
 		return objects;
 	}
