@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="libraries/libraries/sesame-util-2.7.11.jar"/>
 	<classpathentry kind="lib" path="libraries/libraries/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="libraries/libraries/slf4j-simple-1.6.2.jar"/>
+	<classpathentry kind="lib" path="libraries/libraries/sesame-rio-ntriples-2.7.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

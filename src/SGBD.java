@@ -21,16 +21,19 @@ public class SGBD {
 		}
 		
 		FileLog.createLog();
-		Database db=new Database(args[0],RDFFormat.RDFXML);
+		Database db=new Database(args[0],RDFFormat.NTRIPLES);
 		Parser p=new Parser();
 		String request;
 		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader(args[1]));
+			br = new BufferedReader(new FileReader("./queries/queryT"));
 			while ((request = br.readLine()) != null) {
 				p.parse(request);
+				System.out.println(p.getPredicates());
+				System.out.println(p.getObjects());
 				FileLog.writeLog(request);
 				if(!p.isPath()){
+					System.out.println("NOTAPATH");
 					db.queryNStar(p.getPredicates(), p.getObjects());
 					db.printResults();
 				}

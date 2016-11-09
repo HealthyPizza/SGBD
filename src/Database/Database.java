@@ -58,7 +58,7 @@ public class Database {
 					reader.close();
 
 				} catch (Exception e) {
-
+					e.printStackTrace();
 				}
 			}
 		}
@@ -80,8 +80,8 @@ public class Database {
 			Integer iP=dico.getIndexOf(predicates.get(i));
 			Integer iO=dico.getIndexOf(objects.get(i));
 			if(iP != null && iO != null){
-				intPredicates.add(dico.getIndexOf(predicates.get(i)));
-				intObjects.add(dico.getIndexOf(objects.get(i)));
+				intPredicates.add(iP);
+				intObjects.add(iO);
 
 			}
 			else{

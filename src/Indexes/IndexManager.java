@@ -1,9 +1,5 @@
 package Indexes;
 
-import java.io.ObjectInputStream.GetField;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Vector;
 
 import Dictionnary.Dictionnary;
@@ -88,7 +84,13 @@ public final class IndexManager {
 			}
 			index=getMin(predicates);
 			for(Integer i:temp){
-				if(!spo.getThirdLevel(i, predicates.get(index)).contains(objects.get(index))){
+				Vector<Integer> objs=spo.getThirdLevel(i, predicates.get(index));
+				if(objs==null){
+					System.out.println("test");
+					return null;
+					
+				}
+				if(objs.contains(objects.get(index))){
 					temp1.remove(i);
 				}
 			}
