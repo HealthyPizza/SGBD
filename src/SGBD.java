@@ -21,7 +21,7 @@ public class SGBD {
 		}
 		
 		FileLog.createLog();
-		Database db=new Database(args[0],RDFFormat.NTRIPLES);
+		Database db=new Database("./dataset1",RDFFormat.NTRIPLES);
 		Parser p=new Parser();
 		String request;
 		BufferedReader br;
@@ -29,11 +29,8 @@ public class SGBD {
 			br = new BufferedReader(new FileReader("./queries/queryT"));
 			while ((request = br.readLine()) != null) {
 				p.parse(request);
-				System.out.println(p.getPredicates());
-				System.out.println(p.getObjects());
 				FileLog.writeLog(request);
 				if(!p.isPath()){
-					System.out.println("NOTAPATH");
 					db.queryNStar(p.getPredicates(), p.getObjects());
 					db.printResults();
 				}

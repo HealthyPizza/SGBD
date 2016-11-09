@@ -1,5 +1,6 @@
 package Indexes;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import Dictionnary.Dictionnary;
@@ -31,6 +32,10 @@ public final class IndexManager {
 		size++;
 	}
 
+	public static HashMap<Integer, Vector<Integer>> debug(Integer i){
+		return spo.getSecondLevel(i);
+	}
+
 	public static int size(){
 		return size;
 	}
@@ -42,7 +47,7 @@ public final class IndexManager {
 	public static int getCount(Integer i){
 		return pso.getSecondLevel(i).size();
 	}
-	
+
 	public static int getMin(Vector<Integer> predicates){
 		int min = 0;
 		min = pso.getSecondLevel(predicates.get(0)).size();
@@ -56,7 +61,7 @@ public final class IndexManager {
 		}
 		return index;
 	}
-	
+
 	/*pour un predicat et une liste d object : retourne les sujets correspondants*/
 	public static Vector<Integer> subjectsForPredicate(Dictionnary dico,Integer predicate,Vector<Integer> objects){
 		Vector<Integer> res=new Vector<Integer>();
@@ -67,39 +72,48 @@ public final class IndexManager {
 		}
 		return res;
 	}
-	
+
 	/*nstarclassique*/
 	public static Vector<Integer> subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
 		int index=getMin(predicates);
+		//System.out.println("min: "+dico.getValueOf(predicates.get(index)));
 		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
+		//System.out.println("subjects for this predicate: "+ temp.size()+" " + temp );
 		if(temp==null){
 			return null;
 		}
 		Vector<Integer> temp1= new Vector<Integer>(temp);
 		predicates.remove(index);
 		objects.remove(index);
+		//System.out.println(temp1);
 		while(!predicates.isEmpty()){
-			if(temp.size()==1){
+			/*if(temp.size()==1){
 				return temp;
-			}
+			}*/
 			index=getMin(predicates);
+			//System.out.println("min: "+dico.getValueOf(predicates.get(index)));
+			//System.out.println("object: "+objects.get(index));
 			for(Integer i:temp){
 				Vector<Integer> objs=spo.getThirdLevel(i, predicates.get(index));
-				if(objs==null){
-					System.out.println("test");
-					return null;
-					
+				if(objs!=null){
+					//System.out.println("subject "+i+ " : "+objs);
+					if(!objs.contains(objects.get(index))){
+						temp1.remove(i);
+						//System.out.println("-REMOVED-");
+					}
 				}
-				if(objs.contains(objects.get(index))){
+				else{
 					temp1.remove(i);
 				}
+
 			}
 			predicates.remove(index);
 			objects.remove(index);
 		}
+		//System.out.println(temp1);
 		return temp1;
 	}
-	
+
 	public static void printStats(){
 		System.out.println(size+" relations.");
 	}

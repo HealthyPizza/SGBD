@@ -157,7 +157,7 @@ public class Database {
 		System.out.println("Time: " + ((endTime - startTime))  + " ns");
 		FileLog.writeTime("Time: " + ((endTime - startTime))  + " ns");
 		String s="";
-		if(results==null){
+		if(results==null || results.size()==0){
 			System.out.println("No results.");
 			FileLog.writeLog("No results.\n");
 		}
