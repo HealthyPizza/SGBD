@@ -1,5 +1,9 @@
 package Parsing;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Vector;
@@ -10,7 +14,27 @@ public class Parser {
 	Vector<String> predicates;
 	Vector<String> objects;
 	Vector<String> subjects;
+	Vector<String> requests;
 	boolean isPath;
+	
+	public Parser(String file){
+		BufferedReader br;
+		requests=new Vector<String>();
+		String request;
+			try {
+				br = new BufferedReader(new FileReader("./queries/queryT"));
+				while ((request = br.readLine()) != null) {
+					requests.add(request);
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	}
 	
 	public void parse(String request) throws Exception{
 		predicates=new Vector<String>();
