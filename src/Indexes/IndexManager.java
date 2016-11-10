@@ -24,9 +24,9 @@ public final class IndexManager {
 
 	public static void insert(Integer s, Integer p, Integer o){
 		spo.insert(s, p, o);
-		sop.insert(s, o, p);
-		ops.insert(o, p, s);
-		osp.insert(o, s, p);
+		//sop.insert(s, o, p);
+		//ops.insert(o, p, s);
+		//osp.insert(o, s, p);
 		pos.insert(p, o, s);
 		pso.insert(p, s, o);
 		size++;
@@ -76,30 +76,24 @@ public final class IndexManager {
 	/*nstarclassique*/
 	public static Vector<Integer> subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
 		int index=getMin(predicates);
-		//System.out.println("min: "+dico.getValueOf(predicates.get(index)));
 		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
-		//System.out.println("subjects for this predicate: "+ temp.size()+" " + temp );
 		if(temp==null){
 			return null;
 		}
 		Vector<Integer> temp1= new Vector<Integer>(temp);
 		predicates.remove(index);
 		objects.remove(index);
-		//System.out.println(temp1);
 		while(!predicates.isEmpty()){
 			/*if(temp.size()==1){
 				return temp;
 			}*/
 			index=getMin(predicates);
-			//System.out.println("min: "+dico.getValueOf(predicates.get(index)));
-			//System.out.println("object: "+objects.get(index));
+
 			for(Integer i:temp){
 				Vector<Integer> objs=spo.getThirdLevel(i, predicates.get(index));
 				if(objs!=null){
-					//System.out.println("subject "+i+ " : "+objs);
 					if(!objs.contains(objects.get(index))){
 						temp1.remove(i);
-						//System.out.println("-REMOVED-");
 					}
 				}
 				else{
@@ -110,7 +104,6 @@ public final class IndexManager {
 			predicates.remove(index);
 			objects.remove(index);
 		}
-		//System.out.println(temp1);
 		return temp1;
 	}
 
