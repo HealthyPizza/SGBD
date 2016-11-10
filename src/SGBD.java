@@ -22,8 +22,19 @@ public class SGBD {
 		
 		FileLog.createLog();
 		Database db=new Database("./dataset1",RDFFormat.NTRIPLES);
-		Parser p=new Parser();
-		String request;
+		Parser p=new Parser("./queries/queryT");
+		try {
+			while(p.parse()){
+				if(!p.isPath()){
+					db.queryNStar(p.getPredicates(), p.getObjects());
+					db.printResults();
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*String request;
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader("./queries/queryT"));
@@ -49,7 +60,7 @@ public class SGBD {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		FileLog.endLog();
 	}
 }

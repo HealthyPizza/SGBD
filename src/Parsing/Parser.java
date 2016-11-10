@@ -6,7 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
+
+import Log.FileLog;
 
 public class Parser {
 
@@ -16,6 +20,7 @@ public class Parser {
 	Vector<String> subjects;
 	Vector<String> requests;
 	boolean isPath;
+	int curindex=0;
 	
 	public Parser(String file){
 		BufferedReader br;
@@ -33,7 +38,15 @@ public class Parser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			//Collections.shuffle(requests);
+	}
+	
+	public boolean parse() throws Exception{
+		if(curindex<requests.size()){
+			parse(requests.get(curindex++));
+			return true;
+		}
+		return false;
 	}
 	
 	public void parse(String request) throws Exception{
@@ -53,6 +66,7 @@ public class Parser {
 			predicates.add(temp2[1].replaceAll(" ", ""));
 			objects.add(temp2[2].replaceAll(" ", ""));
 		}
+		FileLog.writeLog(request);
 		checkPath();
 
 	}
