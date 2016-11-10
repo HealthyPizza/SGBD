@@ -24,7 +24,7 @@ public class Parser {
 			try {
 				br = new BufferedReader(new FileReader("./queries/queryT"));
 				while ((request = br.readLine()) != null) {
-					requests.add(request);
+					requests.add(request);//
 				}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
