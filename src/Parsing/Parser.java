@@ -1,6 +1,7 @@
 package Parsing;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,22 +24,46 @@ public class Parser {
 	int curindex=0;
 	
 	public Parser(String file){
-		BufferedReader br;
+		
 		requests=new Vector<String>();
-		String request;
-			try {
-				br = new BufferedReader(new FileReader("./queries/queryT"));
-				while ((request = br.readLine()) != null) {
-					requests.add(request);//
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		File f= new File(file);
+		if(f.isFile()){
+			parseFile(f);
+		}
+		if(f.isDirectory()){
+			parseDirectory(f);
+		}
+			
 			//Collections.shuffle(requests);
+	}
+	
+	private void parseDirectory(File files){
+		for(File file:files.listFiles()){
+			if(file.isFile())
+				parseFile(file);
+		}
+	}
+		
+	private void parseFile(File f){
+		BufferedReader br;
+		String request;
+		System.out.println("Parsing file "+ f.getName());
+		try {
+			br = new BufferedReader(new FileReader(f));
+			while ((request = br.readLine()) != null) {
+				requests.add(request);//
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void resetIndex(){
+		curindex=0;
 	}
 	
 	public boolean parse() throws Exception{

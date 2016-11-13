@@ -19,48 +19,26 @@ public class SGBD {
 			System.out.println("2 parameters needed : datasetDirectory queriesFile");
 			return;
 		}
-		
-		FileLog.createLog();
+
+		FileLog.createLog(0);
 		Database db=new Database("./dataset1",RDFFormat.NTRIPLES);
-		Parser p=new Parser("./queries/queryT");
-		try {
-			while(p.parse()){
-				if(!p.isPath()){
-					db.queryNStar(p.getPredicates(), p.getObjects());
-					db.printResults();
+		Parser p=new Parser("./queries");
+		for(int i=0;i<15;i++){
+			try {
+				while(p.parse()){
+					if(!p.isPath()){
+						db.queryNStar(p.getPredicates(), p.getObjects());
+						db.printResults();
+					}
 				}
+				p.resetIndex();
+				FileLog.newPass();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
-		/*String request;
-		BufferedReader br;
-		try {
-			br = new BufferedReader(new FileReader("./queries/queryT"));
-			while ((request = br.readLine()) != null) {
-				p.parse(request);
-				FileLog.writeLog(request);
-				if(!p.isPath()){
-					db.queryNStar(p.getPredicates(), p.getObjects());
-					db.printResults();
-				}
-				else{
-					System.out.println("path");
-					db.queryPath(p.getPredicates(), p.getObjects());
-					db.printResults();
-				}
-			}
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		FileLog.endLog();
 	}
 }

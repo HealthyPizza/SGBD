@@ -155,7 +155,7 @@ public class Database {
 	
 	public void printResults(){
 		System.out.println("Time: " + ((endTime - startTime))  + " ns");
-		FileLog.writeTime("Time: " + ((endTime - startTime))  + " ns");
+		FileLog.writeTime((endTime - startTime)+"|");
 		String s="";
 		if(results==null || results.size()==0){
 			System.out.println("No results.");
@@ -163,6 +163,7 @@ public class Database {
 		}
 		else{
 			System.out.println(results.size() + " result(s) found.");
+			s+=results.size() + " result(s) found.\n";
 			for(Integer i:results){
 				s+=dico.getValueOf(i)+"\n";
 				
