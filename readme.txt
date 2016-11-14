@@ -1,2 +1,2 @@
 pour lancer:
- java -jar SGBD.jar datasetDir requests
+ java -jar SGBD.jar datasetDir requests nbOfPasses
