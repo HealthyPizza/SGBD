@@ -77,9 +77,11 @@ public final class IndexManager {
 	public static Vector<Integer> subjectByPredicates(Dictionnary dico,Vector <Integer> predicates,Vector<Integer> objects){
 		int index=getMin(predicates);
 		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
-		if(temp==null){
+		if(temp==null){ /*No subjects for this predicate and this object*/
+			System.out.println("No subjects for this predicate and this object");
 			return null;
 		}
+
 		Vector<Integer> temp1= new Vector<Integer>(temp);
 		predicates.remove(index);
 		objects.remove(index);
