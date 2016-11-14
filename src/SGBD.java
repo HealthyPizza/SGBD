@@ -11,7 +11,7 @@ public class SGBD {
 	public static void main(String args[]){
 
 		if(args.length!=3){
-			System.out.println("2 parameters needed : datasetDirectory queriesFileDirectory passes");
+			System.out.println("2 parameters needed : datasetDirectory queriesFileDirectory nbOfPasses");
 			return;
 		}
 

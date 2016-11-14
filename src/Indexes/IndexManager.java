@@ -78,7 +78,6 @@ public final class IndexManager {
 		int index=getMin(predicates);
 		Vector<Integer> temp = pos.getThirdLevel(predicates.get(index),objects.get(index));
 		if(temp==null){ /*No subjects for this predicate and this object*/
-			System.out.println("No subjects for this predicate and this object");
 			return null;
 		}
 
