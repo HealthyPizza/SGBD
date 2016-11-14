@@ -20,9 +20,10 @@ public class SGBD {
 			return;
 		}
 
-		FileLog.createLog(0);
+		
 		Database db=new Database("./dataset1",RDFFormat.NTRIPLES);
 		Parser p=new Parser("./queries");
+		//FileLog.createLog(0);
 		for(int i=0;i<15;i++){
 			try {
 				while(p.parse()){
@@ -32,14 +33,14 @@ public class SGBD {
 					}
 				}
 				p.resetIndex();
-				FileLog.newPass();
+				//FileLog.newPass();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
-		FileLog.endLog();
+		//FileLog.endLog();*/
 	}
 }
 
