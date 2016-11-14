@@ -154,7 +154,7 @@ public class Database {
 	}
 	
 	public void printResults(){
-		//System.out.println("Time: " + ((endTime - startTime))  + " ns");
+		System.out.println("Time: " + ((endTime - startTime))  + " ns");
 		FileLog.writeTime((endTime - startTime)+"|");
 		String s="";
 		if(results==null || results.size()==0){
